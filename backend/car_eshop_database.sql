@@ -52,7 +52,7 @@ INSERT INTO `accounts` (`id`, `username`, `password`, `role`) VALUES
 
 CREATE TABLE customers (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  account_id UNSIGNED INT,
+  account_id INT UNSIGNED UNIQUE NOT NULL,
   name VARCHAR(100) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   FOREIGN KEY (account_id) REFERENCES accounts(id)
@@ -66,7 +66,7 @@ CREATE TABLE customers (
 
 CREATE TABLE employees (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  account_id UNSIGNED INT,
+  account_id INT UNSIGNED UNIQUE NOT NULL,
   name VARCHAR(100) NOT NULL,
   position VARCHAR(50),
   FOREIGN KEY (account_id) REFERENCES accounts(id)
@@ -103,7 +103,7 @@ CREATE TABLE models (
 CREATE TABLE cars (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   model_id INT UNSIGNED NOT NULL,
-  vin VARCHAR(17) UNIQUE,
+  vin VARCHAR(17) UNIQUE NOT NULL,
   price DECIMAL(12,2) NOT NULL,
   mileage INT UNSIGNED DEFAULT 0,
   stock INT UNSIGNED DEFAULT 1,
