@@ -10,59 +10,61 @@ import PaymentPortal from './components/PaymentManagement';
 function App() {
   const [user, setUser] = useState(null);
   const [showLogin, setShowLogin] = useState(false);
+  const [currentPortal, setCurrentPortal] = useState('customer'); // default portal
 
-  // Load user from localStorage on component mount
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      try {
-        setUser(JSON.parse(savedUser));
-      } catch (error) {
-        console.error('Error parsing saved user:', error);
-        localStorage.removeItem('user');
-      }
-    }
+    const savedPortal = localStorage.getItem('currentPortal');
+    if (savedUser) setUser(JSON.parse(savedUser));
+    if (savedPortal) setCurrentPortal(savedPortal);
   }, []);
 
-  // Save user to localStorage whenever user state changes
   useEffect(() => {
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      localStorage.removeItem('user');
-    }
+    if (user) localStorage.setItem('user', JSON.stringify(user));
+    else localStorage.removeItem('user');
   }, [user]);
 
-  // Function to handle logout
+  useEffect(() => {
+    localStorage.setItem('currentPortal', currentPortal);
+  }, [currentPortal]);
+
   const handleLogout = () => {
     setUser(null);
+    setCurrentPortal('customer');
     localStorage.removeItem('user');
+    localStorage.removeItem('currentPortal');
   };
 
-  // Function to handle portal switching from admin
-  const handlePortalSwitch = (portalType) => {
-    const newUser = { ...user, role: portalType };
-    setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
+  const handlePortalSwitch = (portal) => {
+    setCurrentPortal(portal);
   };
 
   return (
     <div className="App">
       {showLogin ? (
         <Login onLogin={setUser} onCancel={() => setShowLogin(false)} />
-      ) : user && user.role === 'admin' ? (
-        <AdminPortal user={user} onLogout={handleLogout} onSwitchPortal={handlePortalSwitch} />
-      ) : user && user.role === 'payment_manager' ? (
-        <PaymentPortal user={user} onLogout={handleLogout} />
+      ) : user ? (
+        <>
+          {currentPortal === 'admin' && (
+            <AdminPortal user={user} onLogout={handleLogout} onSwitchPortal={handlePortalSwitch} />
+          )}
+          {currentPortal === 'payment' && (
+            <PaymentPortal user={user} onLogout={handleLogout} />
+          )}
+          {currentPortal === 'customer' && (
+            <CustomerPortal 
+              user={user} 
+              onLogout={handleLogout} 
+              onShowLogin={() => setShowLogin(true)}
+            />
+          )}
+        </>
       ) : (
-        <CustomerPortal 
-          user={user} 
-          onLogout={handleLogout} 
-          onShowLogin={() => setShowLogin(true)}
-        />
+        <CustomerPortal onShowLogin={() => setShowLogin(true)} />
       )}
     </div>
   );
 }
+
 
 export default App;

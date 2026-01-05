@@ -86,7 +86,7 @@ const PaymentManagement = () => {
                 </div>
                 <div className="detail-row">
                   <span className="label">Ημερομηνία:</span>
-                  <span>{formatDate(payment.date)}}</span>
+                  <span>{formatDate(payment.date)}</span>
                 </div>
                 <div className="detail-row">
                   <span className="label">Ποσό:</span>
