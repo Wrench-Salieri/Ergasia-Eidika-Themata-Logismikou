@@ -1,38 +1,79 @@
+/* Global Styles */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-bg);
+}
+
+/* App Wrapper */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: var(--primary-bg);
+  color: var(--text-dark);
 }
 
-.App-link {
-  color: #61dafb;
+/* Color Variables */
+:root {
+  --primary-bg: #0F172A;      /* deep slate */
+  --secondary-bg: #1E293B;    /* slightly lighter slate */
+  --accent-bg: #334155;      /* panels / cards */
+  --accent-blue: #3B82F6;    /* primary action */
+  --accent-blue-hover: #2563EB;
+  --text-dark: #E5E7EB;      /* main text */
+  --text-light: #94A3B8;     /* muted text */
+  --white: #FFFFFF;
+  --shadow: rgba(0, 0, 0, 0.4);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Global Button Styles */
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: var(--white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-blue-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background-color: var(--accent-bg);
+  color: var(--text-dark);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #475569; /* lighter slate */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px var(--shadow);
+}
+
+/* Card Styles */
+.card {
+  background-color: var(--secondary-bg);
+  color: var(--text-dark);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px var(--shadow);
+  padding: 24px;
+  margin: 16px 0;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.6);
 }
