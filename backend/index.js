@@ -137,7 +137,7 @@ OrderPayment.belongsTo(Order, { foreignKey: 'order_id' });
 
 
 // Sync models with the database (create tables if not exist)
-sequelize.sync()
+sequelize.sync({ alter: true })
   .then(() => console.log('User model synced with database'))
   .catch(err => console.log('Error syncing models:', err));
 
@@ -195,8 +195,8 @@ app.get('/cars', async (req, res) => {
       fuel: car.fuel,
       make_year: car.make_year,
 
-      brand: car.Model?.Brand?.name || null,
-      model: car.Model?.name || null,
+      brand: car.CarModel?.Brand?.name || null,
+      model: car.CarModel?.name || null,
       image: car.CarPhotos.find(p => p.is_primary)
         ? `http://localhost:3001${car.CarPhotos.find(p => p.is_primary).photo_url}`
         : null

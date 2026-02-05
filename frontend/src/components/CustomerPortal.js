@@ -9,7 +9,12 @@ const CustomerPortal = ({ onLogout, onShowLogin, user }) => {
     minPrice: '',
     maxPrice: '',
     fuel: '',
-    brand: ''
+    brand: '',
+    minMileage: '',
+    maxMileage: '',
+    transmission: '',
+    makeYear: '',
+    model: ''
   });
   
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
@@ -54,13 +59,19 @@ const CustomerPortal = ({ onLogout, onShowLogin, user }) => {
   const filteredCars = cars.filter(car => {
     if (searchFilters.minPrice && car.price < Number(searchFilters.minPrice)) return false;
     if (searchFilters.maxPrice && car.price > Number(searchFilters.maxPrice)) return false;
+    if (searchFilters.minMileage && car.mileage < Number(searchFilters.minMileage)) return false;
+    if (searchFilters.maxMileage && car.mileage > Number(searchFilters.maxMileage)) return false;
     if (searchFilters.fuel && car.fuel !== searchFilters.fuel) return false;
-
+    if (searchFilters.transmission && car.transmission !== searchFilters.transmission) return false;
+    if (searchFilters.makeYear && car.make_year !== Number(searchFilters.makeYear)) return false;
     if (
       searchFilters.brand &&
-      (!car.brand || !car.brand.toLowerCase().includes(searchFilters.brand.toLowerCase()))
+      !car.brand?.toLowerCase().includes(searchFilters.brand.toLowerCase())
     ) return false;
-
+    if (
+      searchFilters.model &&
+      !car.model?.toLowerCase().includes(searchFilters.model.toLowerCase())
+    ) return false;
     return true; // backend already filters available
   });
 
@@ -116,6 +127,22 @@ const CustomerPortal = ({ onLogout, onShowLogin, user }) => {
               />
             </div>
             <div className="search-field">
+              <label>minMileage</label>
+              <input
+                type="number"
+                value={searchFilters.minMileage}
+                onChange={(e) => setSearchFilters({...searchFilters, minMileage: e.target.value})}
+              />
+            </div>
+              <div className="search-field">
+              <label>maxMileage</label>
+              <input
+                type="number"
+                value={searchFilters.maxMileage}
+                onChange={(e) => setSearchFilters({...searchFilters, maxMileage: e.target.value})}
+              />
+            </div>
+            <div className="search-field">
               <label>Fuel Type</label>
               <select 
                 value={searchFilters.fuel}
@@ -129,11 +156,38 @@ const CustomerPortal = ({ onLogout, onShowLogin, user }) => {
               </select>
             </div>
             <div className="search-field">
+              <label>Transmission Type</label>
+              <select 
+                value={searchFilters.transmission}
+                onChange={(e) => setSearchFilters({...searchFilters, transmission: e.target.value})}
+              >
+                <option value="">All Types</option>
+                <option value="manual">Manual</option>
+                <option value="automatic">Automatic</option>
+              </select>
+            </div>
+            <div className="search-field">
+              <label>Make Year</label>
+              <input
+                type="number"
+                value={searchFilters.makeYear}
+                onChange={(e) => setSearchFilters({...searchFilters, makeYear: e.target.value})}
+              />
+            </div>
+            <div className="search-field">
               <label>Brand</label>
               <input 
                 type="text" 
                 value={searchFilters.brand}
                 onChange={(e) => setSearchFilters({...searchFilters, brand: e.target.value})}
+              />
+            </div>
+            <div className="search-field">
+              <label>Model</label>
+              <input 
+                type="text" 
+                value={searchFilters.model}
+                onChange={(e) => setSearchFilters({...searchFilters, model: e.target.value})}
               />
             </div>
             <button className="btn-primary search-btn">Αναζήτηση</button>
@@ -208,21 +262,10 @@ const PurchaseModal = ({ car, onClose, onSubmit }) => {
     <div className="modal-overlay">
       <div className="modal-content purchase-modal">
         <div className="modal-header">
-          <h3>Αγορά Αυτοκινήτου {car.brand} {car.model}</h3>
+          <h3>Αγορά Αυτοκινήτου - {car.brand} {car.model}</h3>
           <button className="close-btn" onClick={onClose}>×</button>
         </div>
         <form onSubmit={handleSubmit} className="purchase-form">
-          <div className="form-row">
-            <div className="form-group">
-              <label>Ποσότητα</label>
-              <input 
-                type="number" 
-                min="1" 
-                value={purchaseData.quantity || 1}
-                onChange={(e) => setPurchaseData({...purchaseData, quantity: e.target.value})}
-              />
-            </div>
-          </div>
           <div className="form-group">
             <label>Όνομα</label>
             <input 

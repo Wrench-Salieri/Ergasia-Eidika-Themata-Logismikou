@@ -1,12 +1,12 @@
-/* Car e-Shop / Hotel Booking App */
-.hotel-booking-app {
+/* Car e-Shop  */
+.car-eshpo-app {
   min-height: 100vh;
   background-color: var(--primary-bg);
   color: var(--text-dark);
 }
 
 /* Header */
-.hotel-header {
+.eshop-header {
   background: linear-gradient(
     135deg,
     #1E293B 0%,
@@ -32,7 +32,7 @@
   gap: 1rem;
 }
 
-.hotel-logo {
+.eshop-logo {
   width: 60px;
   height: 60px;
   border-radius: 8px;
@@ -67,8 +67,8 @@
 
 .search-form {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 0.5rem;
   align-items: end;
   background-color: var(--accent-bg);
   padding: 2rem;
@@ -112,7 +112,7 @@
 
 .cars-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(6, minmax(200px, 1fr));
   gap: 20px;
   justify-items: center;
 }
@@ -151,15 +151,38 @@
   background-color: var(--secondary-bg) !important;
   border-radius: 16px;
   box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+  max-width: 500px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .modal-header {
   padding: 2rem;
   border-bottom: 1px solid rgba(255,255,255,0.08);
+  
 }
 
 .modal-header h3 {
   font-size: 1.5rem;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.4);
 }
 
 .close-btn {
@@ -172,17 +195,26 @@
 }
 
 /* Forms */
+.form-group {
+  margin-bottom: 1.5rem;
+}
 .form-group label {
-  color: var(--text-light);
+  color: var(--text-dark);
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
 }
 
 .form-group input,
 .form-group select {
-  padding: 1rem;
+  padding: 0.8rem;
   border-radius: 8px;
   background-color: var(--primary-bg);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 2px solid rgba(59,130,246,0.2);
   color: var(--text-dark);
+  width: 100%;
+  transition: all 0.3s ease;
+  max-width: 95%;
 }
 
 .form-group input:focus,
@@ -211,15 +243,21 @@
 }
 
 /* Booking Summary */
-.booking-summary {
+.purchase-summary {
   background-color: var(--accent-bg);
   padding: 1.5rem;
   border-radius: 12px;
+  margin: 1.5rem 0;
+  border-left: 4px solid var(--accent-blue);
 }
 
 .summary-total {
   color: var(--accent-blue);
-  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 1.3rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 /* Responsive */
